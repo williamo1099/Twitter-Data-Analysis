@@ -23,7 +23,7 @@ import org.json.JSONObject;
  * Data Organization - TweetPartition
  * A class to partition data into four categories : tweet (0), reply (1), retweet (2) and quote retweet (3).
  *
- * @author williamo1099
+ * @author William Oktavianus (williamo1099)
  */
 public class TweetPartition {
 
@@ -125,6 +125,13 @@ public class TweetPartition {
             }
         }
         
+        /**
+         * Constructs the query used as the prepared statement to insert data.
+         * Note. This is a method of DBOutputFormat class.
+         * 
+         * @param table the table to insert into
+         * @param fieldNames the fields to insert into. If field names are unknown, supply an array of nulls
+         */
         public String constructQuery(String table, String[] fieldNames) {
             if (fieldNames == null) {
                 throw new IllegalArgumentException("Field names may not be null");

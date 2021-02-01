@@ -19,7 +19,7 @@ import org.json.JSONObject;
  * JobChaining - Top10MostRetweetedTweets
  * A class to find 10 most retweeted tweets.
  *
- * @author williamo1099
+ * @author William Oktavianus (williamo1099)
  */
 public class Top10MostRetweetedTweets {
 

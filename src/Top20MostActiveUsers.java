@@ -20,9 +20,9 @@ import org.json.JSONObject;
 
 /**
  * JobChaining - Top20MostActiveUsers
- * A class to find 20 most active users in Twitter, based on how many times he/she tweets.
+ * A class to find 20 most active users in Twitter, based on how many times a user tweets.
  *
- * @author williamo1099
+ * @author William Oktavianus (williamo1099)
  */
 public class Top20MostActiveUsers {
 

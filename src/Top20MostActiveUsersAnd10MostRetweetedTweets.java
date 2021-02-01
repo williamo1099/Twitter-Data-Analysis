@@ -14,8 +14,9 @@ import org.json.JSONObject;
 
 /**
  * JobMerging - Top10MostRetweetedTweets
+ * A class to find 10 most retweeted tweets and 20 most active users in Twitter.
  * 
- * @author williamo1099
+ * @author William Oktavianus (williamo1099)
  */
 public class Top20MostActiveUsersAnd10MostRetweetedTweets {
     

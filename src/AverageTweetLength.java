@@ -18,10 +18,10 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.json.JSONObject;
 
 /**
- * JobMerging - Test
- A class to find average tweet length in one hour and one day per month.
+ * JobMerging - AverageTweetLength
+ * A class to find average tweet length in one hour and one day per month.
  *
- * @author williamo1099
+ * @author William Oktavianus (williamo1099)
  */
 public class AverageTweetLength {
 
@@ -87,7 +87,7 @@ public class AverageTweetLength {
         
         @Override
         protected void setup(Context context) throws IOException, InterruptedException {
-            this.mos = new MultipleOutputs<Text, AverageTuple>(context);
+            this.mos = new MultipleOutputs<>(context);
         }
 
         @Override
