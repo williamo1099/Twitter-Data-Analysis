@@ -127,22 +127,26 @@ public class Top10MostRetweetedTweets {
     }
 
     public static void main(String[] args) throws Exception {
-        // set path
+        // Set input and output path.
         Configuration conf = new Configuration();
         Path inputPath = new Path(args[0]);
         Path intOutputPath = new Path(args[1] + "_int");
         Path outputPath = new Path(args[1]);
 
+        // Initialize counting job.
         Job countingJob = new Job(conf, "JobChaining - Retweet Counter");
         countingJob.setJarByClass(Top10MostRetweetedTweets.class);
-        // set mapper and reducer class
+        
+        // Set mapper and reducer class for counting job.
         countingJob.setMapperClass(Top10MostRetweetedTweets.RetweetCounterMapper.class);
         countingJob.setCombinerClass(Top10MostRetweetedTweets.RetweetCounterReducer.class);
         countingJob.setReducerClass(Top10MostRetweetedTweets.RetweetCounterReducer.class);
-        // set output key and value class
+        
+        // Set output key and value class for counting job.
         countingJob.setOutputKeyClass(Text.class);
         countingJob.setOutputValueClass(LongWritable.class);
 
+        // Set input and output path for counting job.
         countingJob.setInputFormatClass(TextInputFormat.class);
         TextInputFormat.addInputPath(countingJob, inputPath);
         countingJob.setOutputFormatClass(TextOutputFormat.class);
@@ -150,18 +154,22 @@ public class Top10MostRetweetedTweets {
 
         int code = 1;
         if (countingJob.waitForCompletion(true)) {
+            // Initialize filtering job.
             Job filteringJob = new Job(conf, "JobChaining - Tweet Filter");
             filteringJob.setJarByClass(Top10MostRetweetedTweets.class);
-            // set mapper and reducer class
+            
+            // Set mapper and reducer class for filtering job.
             filteringJob.setMapperClass(Top10MostRetweetedTweets.TweetFilterMapper.class);
             filteringJob.setReducerClass(Top10MostRetweetedTweets.TweetFilterReducer.class);
             filteringJob.setNumReduceTasks(1);
-            // set output key and value class
+            
+            // Set output key and value class for filtering job.
             filteringJob.setMapOutputKeyClass(NullWritable.class);
             filteringJob.setMapOutputValueClass(Text.class);
             filteringJob.setOutputKeyClass(Text.class);
             filteringJob.setOutputValueClass(NullWritable.class);
 
+            // Set input and output path for filtering job.
             filteringJob.setInputFormatClass(TextInputFormat.class);
             TextInputFormat.addInputPath(filteringJob, intOutputPath);
             filteringJob.setOutputFormatClass(TextOutputFormat.class);

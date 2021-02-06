@@ -117,20 +117,21 @@ public class AverageTweetLength {
     }
     
     public static void main(String[] args) throws Exception {
-        // set path
+        // Initialize counting job.
         Configuration conf = new Configuration();
         Job countingJob = new Job(conf, "JobMerging - Average Tweet Length");
         countingJob.setJarByClass(AverageTweetLength.class);
-        // set mapper and reducer class
+        
+        // Set mapper and reducer class.
         countingJob.setMapperClass(AverageTweetLength.AverageTweetCounterMapper.class);
         countingJob.setCombinerClass(AverageTweetLength.AverageTweetCounterCombiner.class);
         countingJob.setReducerClass(AverageTweetLength.AverageTweetCounterReducer.class);
-        // set output key and value class
+        
+        // Set output key and value class.
         countingJob.setOutputKeyClass(Text.class);
         countingJob.setOutputValueClass(AverageTuple.class);
-        
-        countingJob.setSpeculativeExecution(false);
 
+        // Set input and output path.
         countingJob.setInputFormatClass(TextInputFormat.class);
         TextInputFormat.setInputPaths(countingJob, new Path(args[0]));
         countingJob.setOutputFormatClass(TextOutputFormat.class);

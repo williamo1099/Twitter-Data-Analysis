@@ -104,21 +104,25 @@ public class Top20MostActiveUsersAnd10MostRetweetedTweets {
     }
     
     public static void main(String[] args) throws Exception {
-        // set path
-        Configuration conf = new Configuration();
+        // Set path.
         Path inputPath = new Path(args[0]);
         Path outputPath = new Path(args[1]);
 
+        // Initialize counting job.
+        Configuration conf = new Configuration();
         Job countingJob = new Job(conf, "JobMerging - Tweet and Retweet Counter");
         countingJob.setJarByClass(Top20MostActiveUsersAnd10MostRetweetedTweets.class);
-        // set mapper and reducer class
+        
+        // Set mapper and reducer class.
         countingJob.setMapperClass(Top20MostActiveUsersAnd10MostRetweetedTweets.TweetRetweetCounterMapper.class);
         countingJob.setCombinerClass(Top20MostActiveUsersAnd10MostRetweetedTweets.TweetRetweetCounterCombiner.class);
         countingJob.setReducerClass(Top20MostActiveUsersAnd10MostRetweetedTweets.TweetRetweetCounterReducer.class);
-        // set output key and value class
+        
+        // Set output key and value class.
         countingJob.setOutputKeyClass(Text.class);
         countingJob.setOutputValueClass(LongWritable.class);
 
+        // Set input and output path.
         countingJob.setInputFormatClass(TextInputFormat.class);
         TextInputFormat.addInputPath(countingJob, inputPath);
         countingJob.setOutputFormatClass(TextOutputFormat.class);

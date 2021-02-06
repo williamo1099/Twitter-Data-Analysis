@@ -165,7 +165,7 @@ public class TweetPartition {
     }
 
     public static void main(String[] args) throws Exception {
-        
+        // Initialize partitioning job.
         Configuration conf = new Configuration();
         DBConfiguration.configureDB(conf,
             "com.mysql.jdbc.Driver", // driver class
@@ -175,20 +175,23 @@ public class TweetPartition {
         Job partitioningJob = Job.getInstance(conf, "Data Organization - Tweet Partition");
         partitioningJob.setJarByClass(TweetPartition.class);
         
+        // Set mapper and reducer class.
         partitioningJob.setMapperClass(TweetMapper.class);
         partitioningJob.setPartitionerClass(TweetPartitioner.class);
         TweetPartitioner.setMinCategory(partitioningJob, 0);
         partitioningJob.setReducerClass(TweetReducer.class);
         partitioningJob.setNumReduceTasks(4);
 
-        partitioningJob.setInputFormatClass(TextInputFormat.class);
-        FileInputFormat.setInputPaths(partitioningJob, new Path(args[0]));
-        
-        partitioningJob.setOutputFormatClass(DBOutputFormat.class);
+        // Set output key and value class.
         partitioningJob.setMapOutputKeyClass(IntWritable.class);
         partitioningJob.setMapOutputValueClass(Text.class);
         partitioningJob.setOutputKeyClass(NullWritable.class);
         partitioningJob.setOutputValueClass(NullWritable.class);
+        
+        // Set input and output path.
+        partitioningJob.setInputFormatClass(TextInputFormat.class);
+        FileInputFormat.setInputPaths(partitioningJob, new Path(args[0]));
+        partitioningJob.setOutputFormatClass(DBOutputFormat.class);
         
         boolean success = partitioningJob.waitForCompletion(true);
         System.exit(success ? 0 : 1);
