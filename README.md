@@ -7,3 +7,7 @@ Analyzing a Twitter dataset consisting of Tweet objects using MapReduce. A Tweet
 * Analysis on top 20 most active Twitter users.
 * Analysis on top 10 most retweeted tweets.
 * Analysis on tweet partition.
+
+## Lincense
+
+Distributed under the MIT Lincese. See `LICENSE` for more information.
